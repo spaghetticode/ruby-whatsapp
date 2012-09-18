@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = RubyWhatsapp::VERSION
 
   gem.add_development_dependency "pry"
+  gem.add_development_dependency "rspec"
   gem.add_dependency "httpclient"
   gem.add_dependency "nokogiri"
 end
