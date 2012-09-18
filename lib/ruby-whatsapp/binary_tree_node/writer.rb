@@ -3,8 +3,12 @@ require "yaml"
 module RubyWhatsapp
   module BinaryTreeNode
     class Writer
+      def dictionaty_path
+        File.join File.dirname(__FILE__), 'dictionary.yml'
+      end
+
       def dictionary
-        @dictionary ||= YAML.load_file('ruby-whatsapp/binary_tree_node/dictionary.yml')["dictionary"]
+        @dictionary ||= YAML.load_file dictionaty_path
       end
 
       def token_map
@@ -22,8 +26,6 @@ module RubyWhatsapp
         len += 1 unless node.children.empty?
         len += 1 unless node.content.empty?
       end
-
-
     end
   end
 end
