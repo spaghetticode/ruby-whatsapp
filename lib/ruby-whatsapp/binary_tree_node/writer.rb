@@ -25,6 +25,17 @@ module RubyWhatsapp
         len += node.attribute_nodes.size * 2
         len += 1 unless node.children.empty?
         len += 1 unless node.content.empty?
+        puts len
+      end
+
+      def write_list_start length
+        if length == 0
+          "\x00"
+        elsif length < 256
+          "\xf8"+length.chr
+        else
+          "\xf9"+(length%256).chr
+        end
       end
     end
   end
