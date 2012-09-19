@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RubyWhatsapp::BinaryTreeNode::Writer do
   def to_bytes string
-    string.each_byte.inject([]) {|ary, b| ary << b}
+    string.each_byte.inject([]) {|ary, b| ary << b} if string
   end
 
   describe '#token_map' do
@@ -18,19 +18,19 @@ describe RubyWhatsapp::BinaryTreeNode::Writer do
     end
   end
 
-  describe '#get_list_start' do
+  describe '#write_list_start' do
     it 'returns the expected results' do
-      to_bytes(subject.get_list_start(0)).should == [0]
-      to_bytes(subject.get_list_start(89)).should == [248, 89]
-      to_bytes(subject.get_list_start(13232)).should == [249, 176]
+      to_bytes(subject.write_list_start(0).last).should == [0]
+      to_bytes(subject.write_list_start(89).last).should == [248, 89]
+      to_bytes(subject.write_list_start(13232).last).should == [249, 176]
     end
   end
 
-  describe '#get_token' do
+  describe '#write_token' do
     it 'returns the expected results' do
-      to_bytes(subject.get_token(23)).should == [23]
-      to_bytes(subject.get_token(298)).should == [254, 53]
-      subject.get_token(1233).should be_nil
+      to_bytes(subject.write_token(23).last).should == [23]
+      to_bytes(subject.write_token(298).last).should == [254, 53]
+      lambda{subject.write_token(1233)}.should_not change(subject, :output)
     end
   end
 end

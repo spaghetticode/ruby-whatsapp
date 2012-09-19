@@ -3,6 +3,8 @@ require "yaml"
 module RubyWhatsapp
   module BinaryTreeNode
     class Writer
+      attr_reader :output
+
       def dictionaty_path
         File.join File.dirname(__FILE__), 'dictionary.yml'
       end
@@ -28,23 +30,21 @@ module RubyWhatsapp
         puts len
       end
 
-      def get_list_start length
+      def write_list_start length
         if length == 0
-          "\x00"
+          @output << "\x00"
         elsif length < 256
-          "\xf8"+length.chr
+          @output << "\xf8"+length.chr
         else
-          "\xf9"+(length%256).chr
+          @output << "\xf9"+(length%256).chr
         end
       end
 
-      def get_token token
+      def write_token token
         if token < 0xf5
-          token.chr
+          @output << token.chr
         elsif token <= 0x1f4
-          "\xfe" + (token - 0xf5).chr
-        else
-          nil
+          @output << "\xfe" + (token - 0xf5).chr
         end
       end
     end
