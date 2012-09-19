@@ -18,11 +18,19 @@ describe RubyWhatsapp::BinaryTreeNode::Writer do
     end
   end
 
-  describe '#write_list_start' do
+  describe '#get_list_start' do
     it 'returns the expected results' do
-      to_bytes(subject.write_list_start(0)).should == [0]
-      to_bytes(subject.write_list_start(89)).should == [248, 89]
-      to_bytes(subject.write_list_start(13232)).should == [249, 176]
+      to_bytes(subject.get_list_start(0)).should == [0]
+      to_bytes(subject.get_list_start(89)).should == [248, 89]
+      to_bytes(subject.get_list_start(13232)).should == [249, 176]
+    end
+  end
+
+  describe '#get_token' do
+    it 'returns the expected results' do
+      to_bytes(subject.get_token(23)).should == [23]
+      to_bytes(subject.get_token(298)).should == [254, 53]
+      subject.get_token(1233)).should be_nil
     end
   end
 end

@@ -28,13 +28,23 @@ module RubyWhatsapp
         puts len
       end
 
-      def write_list_start length
+      def get_list_start length
         if length == 0
           "\x00"
         elsif length < 256
           "\xf8"+length.chr
         else
           "\xf9"+(length%256).chr
+        end
+      end
+
+      def get_token token
+        if token < 0xf5
+          token.chr
+        elsif oken <= 0x1f4
+          "\xfe" + (token - 0xf5).chr
+        else
+          nil
         end
       end
     end
