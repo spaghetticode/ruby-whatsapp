@@ -41,7 +41,7 @@ module RubyWhatsapp
       def get_token token
         if token < 0xf5
           token.chr
-        elsif oken <= 0x1f4
+        elsif token <= 0x1f4
           "\xfe" + (token - 0xf5).chr
         else
           nil

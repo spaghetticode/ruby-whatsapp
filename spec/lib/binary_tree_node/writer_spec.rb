@@ -30,7 +30,7 @@ describe RubyWhatsapp::BinaryTreeNode::Writer do
     it 'returns the expected results' do
       to_bytes(subject.get_token(23)).should == [23]
       to_bytes(subject.get_token(298)).should == [254, 53]
-      subject.get_token(1233)).should be_nil
+      subject.get_token(1233).should be_nil
     end
   end
 end
