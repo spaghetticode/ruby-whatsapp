@@ -11,10 +11,24 @@ describe RubyWhatsapp::BinaryTreeNode::Writer do
     end
   end
 
+  describe '#write_int8' do
+    it 'returns the expected results' do
+      to_bytes(subject.write_int8(32).last).should == [32]
+      to_bytes(subject.write_int8(259).last).should == [3]
+    end
+  end
+
   describe '#write' do
     it 'works' do
-      xml = Nokogiri.XML('<receipt_acks></receipt_acks>').children.first
-      subject.write xml
+      pending
+    end
+  end
+
+  describe '#write_internal' do
+    it 'works' do
+      # xml = Nokogiri.XML('<receipt_acks></receipt_acks>').children.first
+      # subject.write xml
+      pending
     end
   end
 

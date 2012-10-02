@@ -21,13 +21,21 @@ module RubyWhatsapp
         @output = []
       end
 
+      def write_int8 value
+        @output << (value & 0xff).chr
+      end
+
+      # todo - incomplete
       def write node
-        return @output << "\x00" if node.nil?
+      end
+
+      # todo - incomplete
+      def write_internal node
         len = 1
         len += node.attribute_nodes.size * 2
         len += 1 unless node.children.empty?
         len += 1 unless node.content.empty?
-        puts len
+        write_list_start len
       end
 
       def write_list_start length
@@ -36,6 +44,7 @@ module RubyWhatsapp
         elsif length < 256
           @output << "\xf8"+length.chr
         else
+          # todo - duplication of login of write_int8 method
           @output << "\xf9"+(length%256).chr
         end
       end
