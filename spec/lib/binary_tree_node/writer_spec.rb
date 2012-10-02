@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe RubyWhatsapp::BinaryTreeNode::Writer do
+  before {subject.output = []}
+
   def to_bytes string
     string.each_byte.inject([]) {|ary, b| ary << b} if string
   end
