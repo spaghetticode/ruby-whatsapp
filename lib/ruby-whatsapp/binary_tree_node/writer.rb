@@ -31,6 +31,12 @@ module RubyWhatsapp
         ret << ((value & 0x00ff) >> 0).chr
       end
 
+      def write_int24 value
+        @output << ((value & 0xff0000) >> 16).chr
+        @output << ((value & 0x00ff00) >> 8).chr
+        @output << ((value & 0x0000ff) >> 0).chr
+      end
+
       # todo - incomplete
       def write node
       end
