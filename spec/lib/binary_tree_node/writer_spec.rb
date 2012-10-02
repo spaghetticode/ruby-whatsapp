@@ -20,8 +20,8 @@ describe RubyWhatsapp::BinaryTreeNode::Writer do
 
   describe '#write_int16' do
     it 'returns the expected results' do
-      to_bytes(subject.write_int16(32).last).should == [0, 32]
-      to_bytes(subject.write_int16(656).last).should == [2, 144]
+      to_bytes(subject.write_int16(32)).should == [0, 32]
+      to_bytes(subject.write_int16(656)).should == [2, 144]
     end
   end
 

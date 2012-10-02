@@ -25,10 +25,10 @@ module RubyWhatsapp
         @output << (value & 0xff).chr
       end
 
+      # todo - don't why this method returns a values a the others append to @output
       def write_int16 value
-        @output << ((value & 0xff00) >> 8).chr
-        @output << ((value & 0x00ff) >> 0).chr
-        # todo - warning original func has a different return value
+        ret = ((value & 0xff00) >> 8).chr
+        ret << ((value & 0x00ff) >> 0).chr
       end
 
       # todo - incomplete
