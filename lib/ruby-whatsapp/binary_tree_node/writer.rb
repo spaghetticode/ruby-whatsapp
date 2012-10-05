@@ -22,7 +22,7 @@ module RubyWhatsapp
       end
 
       def write_int8 value
-        @output << (value & 0xff).chr
+        output << (value & 0xff).chr
       end
 
       # todo - don't why this method returns a values a the others append to @output
@@ -32,9 +32,9 @@ module RubyWhatsapp
       end
 
       def write_int24 value
-        @output << ((value & 0xff0000) >> 16).chr
-        @output << ((value & 0x00ff00) >> 8).chr
-        @output << ((value & 0x0000ff) >> 0).chr
+        output << ((value & 0xff0000) >> 16).chr
+        output << ((value & 0x00ff00) >> 8).chr
+        output << ((value & 0x0000ff) >> 0).chr
       end
 
       # todo - incomplete
@@ -43,7 +43,7 @@ module RubyWhatsapp
 
       # todo - incomplete
       def write_internal node
-        len = 1
+        len  = 1
         len += node.attribute_nodes.size * 2
         len += 1 unless node.children.empty?
         len += 1 unless node.content.empty?
@@ -51,21 +51,24 @@ module RubyWhatsapp
       end
 
       def write_list_start length
-        if length == 0
-          @output << "\x00"
-        elsif length < 256
-          @output << "\xf8"+length.chr
-        else
-          # todo - duplication of login of write_int8 method
-          @output << "\xf9"+(length%256).chr
+        list_start = begin
+          if length.zero?
+            "\x00"
+          elsif length < 256
+            "\xf8"+length.chr
+          else
+            # todo - duplication of login of write_int8 method
+           "\xf9"+(length%256).chr
+          end
         end
+        output << list_start
       end
 
       def write_token token
         if token < 0xf5
-          @output << token.chr
+          output << token.chr
         elsif token <= 0x1f4
-          @output << "\xfe" + (token - 0xf5).chr
+          output << "\xfe" + (token - 0xf5).chr
         end
       end
     end
